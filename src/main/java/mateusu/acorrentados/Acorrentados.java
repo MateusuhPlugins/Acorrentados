@@ -70,14 +70,14 @@ public class Acorrentados
         Location targetLocation = target.getLocation();
         Location playerLocation = playerToMove.getLocation();
 
-        // Verifica a distância e ajusta a velocidade de puxar
+        // Checa a distância e ajusta a velocidade de puxar o player.
         double distance = targetLocation.distance(playerLocation);
-        if (distance > 1.0) { // Ajuste a distância mínima de puxar conforme necessário
+        if (distance > 1.0) { // Distância entre um player e outro.
             Vector direction = targetLocation.clone().subtract(playerLocation).toVector().normalize();
-            double pullStrength = 0.1; // Força de puxar (ajuste conforme necessário)
+            double pullStrength = 0.1; // Força de puxar
             playerToMove.setVelocity(direction.multiply(pullStrength));
         } else {
-            // Se o jogador estiver muito perto, teletransporta diretamente para evitar problemas de física
+            // Se o player estiver muito perto, teletransporta
             playerToMove.teleport(targetLocation);
         }
     }
@@ -103,19 +103,19 @@ public class Acorrentados
     }
 
     private void drawParticlesBetweenPlayers(Player player1, Player player2) {
-        Location loc1 = player1.getLocation().clone().add(0, 1, 0); // Adiciona altura para que as partículas apareçam acima do solo
+        Location loc1 = player1.getLocation().clone().add(0, 1, 0);
         Location loc2 = player2.getLocation().clone().add(0, 1, 0);
 
         double distance = loc1.distance(loc2);
         Vector vector = loc2.toVector().subtract(loc1.toVector()).normalize();
 
-        // Definindo a cor das partículas como azul claro
+        // RGB da partícula
         Particle.DustTransition dustTransition = new Particle.DustTransition(
                 Color.fromRGB(64, 64, 64), // Start color
                 Color.fromRGB(64, 64, 64), // End color
                 1); // Size
 
-        for (double i = 0; i < distance; i += 1.0) { // Aumenta o espaçamento entre as partículas
+        for (double i = 0; i < distance; i += 1.0) { // Espaço entre as partículas
             Location point = loc1.clone().add(vector.clone().multiply(i));
             loc1.getWorld().spawnParticle(Particle.DUST_COLOR_TRANSITION, point, 1, dustTransition);
         }
