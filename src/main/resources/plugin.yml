@@ -1,0 +1,7 @@
+name: Acorrentados
+version: '${project.version}'
+main: mateusu.acorrentados.Main
+api-version: '1.21'
+commands:
+  ac:
+    description: Comando para gerenciar o jogo dos acorrentados.
